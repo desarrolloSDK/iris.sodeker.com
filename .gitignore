@@ -1,0 +1,5 @@
+laradock/.env
+vendor/
+node_modules/
+storage/
+mysql_data/

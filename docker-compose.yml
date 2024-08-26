@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  nginx:
+    build:
+      context: ./laradock/nginx
+    volumes:
+      - ./src:/var/www
+    ports:
+      - "8080:80"
+    networks:
+      - laravel
+
+  php-fpm:
+    build:
+      context: ./laradock/php-fpm
+    volumes:
+      - ./src:/var/www
+    networks:
+      - laravel
+
+  mysql:
+    build:
+      context: ./laradock/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: homestead
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: secret
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - laravel
+
+volumes:
+  mysql_data:
+
+networks:
+  laravel:
+    driver: bridge
